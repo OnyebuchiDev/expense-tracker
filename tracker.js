@@ -1,5 +1,6 @@
 //step 4: store multiple expenses
 const expenses = [];
+let expenseBeingEditedId;
 //step 1: selecting the elements
 const expenseName = 
 document.querySelector('.expense-name');
@@ -24,7 +25,6 @@ if (expenseName.value === '' || expenseAmount.value === '') {
   updateTotal();
   expenseName.value = '';
   expenseAmount.value = '';
-  console.log(expense)
 
 // creating the expense list and total expense
 
@@ -45,6 +45,8 @@ const html = `
     })}</div>
     <button data-id="${expense.id}" class="delete-button"
     >Delete</button>
+    <button data-id="${expense.id}" class="edit-button">Edit</button>
+    
   </div>
 `;
 expenseList.innerHTML += html;
@@ -76,6 +78,59 @@ if (expenses.length === 0) {
   <p class="no-expenses"> No expenses yet </p>
   `
 }
+
+if (event.target.classList.contains('edit-button')) {
+  const id =
+  event.target.dataset.id;
+
+  expenseBeingEditedId = id;
+
+  const expenseToEdit = 
+  expenses.find((expense) => {
+   return expense.id == id;
+  })
+  console.log(expenseToEdit);
+
+  expenseName.value =
+  expenseToEdit.name;
+  expenseAmount.value =
+  expenseToEdit.amount;
+}
+});
+
+const updateButton = 
+document.querySelector('.update-button');
+updateButton.addEventListener('click', () => {
+  const expenseToUpdate = 
+  expenses.find((expense) => {
+    return expense.id == expenseBeingEditedId;
+  });
+    expenseToUpdate.name =
+  expenseName.value;
+  expenseToUpdate.amount =
+  expenseAmount.value;
+
+
+  const expenseItem = document.querySelector(
+  `.expense-item[data-id="${expenseBeingEditedId}"]`
+);
+
+expenseItem.innerHTML = `
+  <div>${expenseToUpdate.name}</div>
+  <div>$${Number(expenseToUpdate.amount).toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })}</div>
+  <button data-id="${expenseToUpdate.id}" class="delete-button">
+    Delete
+  </button>
+  <button data-id="${expenseToUpdate.id}" class="edit-button">
+    Edit
+  </button>
+`;
+expenseName.value = '';
+expenseAmount.value = '';
+updateTotal();
 })
 
 
