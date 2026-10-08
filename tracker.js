@@ -6,7 +6,15 @@ let expenseBeingEditedId;
 const backgroundToggle = document.querySelector('.theme-button');
 backgroundToggle.addEventListener('click', () => {
   document.body.classList.toggle('dark-mode')
-})
+
+  localStorage.setItem('dark-mode',
+  document.body.classList.contains('dark-mode')
+  );
+  });
+  if (localStorage.getItem('dark-mode') === 'true') {
+    document.body.classList.add('dark-mode')
+  }
+
 const expenseName = 
 document.querySelector('.expense-name');
 
@@ -40,9 +48,10 @@ if (expenseName.value === '' || expenseAmount.value === '') {
   expenses.push(expense)
   saveToLocalStorage();
   updateTotal();
+
   expenseName.value = '';
   expenseAmount.value = '';
-
+renderExpenses();
 // creating the expense list and total expense
 
 if (expenses.length === 1) {
@@ -50,24 +59,7 @@ if (expenses.length === 1) {
   noExpensis.remove();
 }
 
-const { name, amount} = expense;
-const html = `
- <div class="expense-item"
-  data-id="${expense.id}">
-  <div>${name}</div>
 
-    <div>$${Number(amount).toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    })}</div>
-    <div>${expense.date}</div>
-    <button data-id="${expense.id}" class="delete-button"
-    >Delete</button>
-    <button data-id="${expense.id}" class="edit-button">Edit</button>
-    
-  </div>
-`;
-expenseList.innerHTML += html;
 });
 
   
@@ -172,7 +164,7 @@ ${expenses.length === 1 ?
   'item' : 'items'
 }`;
 }
- renderExpenses();
+ 
 
 function renderExpenses() {
   expenseList.innerHTML = '';
@@ -199,7 +191,7 @@ function renderExpenses() {
       </div>
     `;
 
-   renderExpenses();
+   expenseList.innerHTML += html;
   });
 
   if (expenses.length === 0) {
@@ -217,6 +209,7 @@ function renderExpenses() {
 function saveToLocalStorage() {
   localStorage.setItem('expenses', JSON.stringify((expenses)));
 }
+renderExpenses();
 
 
 
