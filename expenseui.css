@@ -1,6 +1,5 @@
-
 /* =========================
-   GENERAL STYLES
+   GENERAL
 ========================= */
 
 * {
@@ -9,17 +8,17 @@
 
 body {
   margin: 0;
-  padding: 30px;
+  padding: 30px 20px;
   font-family: Arial, sans-serif;
-  background-color: #f5f7fa;
+  background-color: #f4f7f6;
   color: #172033;
   transition: background-color 0.3s, color 0.3s;
 }
 
 header,
 section,
-main,
-body > div {
+.total-expense,
+main {
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
@@ -31,32 +30,28 @@ body > div {
 
 header {
   padding: 25px;
-  border: 1px solid #dce2ea;
-  border-radius: 12px 12px 0 0;
   background-color: white;
+  border: 1px solid #d9e0e8;
+  border-radius: 12px;
 }
 
 header h1 {
-  margin-top: 0;
-  margin-bottom: 8px;
+  margin: 0 0 8px;
+  font-size: 30px;
 }
 
 header p {
-  margin-bottom: 20px;
+  margin: 0 0 20px;
   color: #667085;
 }
-
-/* =========================
-   THEME BUTTON
-========================= */
 
 .theme-button {
   padding: 10px 16px;
   border: none;
   border-radius: 8px;
-  cursor: pointer;
   background-color: #172033;
   color: white;
+  cursor: pointer;
 }
 
 .theme-button:hover {
@@ -64,34 +59,52 @@ header p {
 }
 
 /* =========================
-   ADD EXPENSE SECTION
+   ADD EXPENSE
 ========================= */
 
 section {
-  padding: 25px;
   margin-top: 15px;
-  border: 1px solid #dce2ea;
-  border-radius: 12px;
+  padding: 25px;
   background-color: white;
+  border: 1px solid #d9e0e8;
+  border-radius: 12px;
 }
 
-section p:first-child {
+section > p:first-child {
+  margin-top: 0;
   font-size: 20px;
   font-weight: bold;
+}
+
+section > p {
+  margin-bottom: 8px;
 }
 
 input {
   width: 100%;
   padding: 13px;
-  margin-bottom: 12px;
-  border: 1px solid #cbd3df;
+  margin-bottom: 15px;
+
+  border: 1px solid #cbd5e1;
   border-radius: 7px;
+
   font-size: 15px;
 }
 
 input:focus {
-  outline: 2px solid #22c55e;
+  outline: 2px solid #20c978;
   border-color: transparent;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.expenses-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
 }
 
 .add-button,
@@ -99,43 +112,65 @@ input:focus {
   padding: 13px 20px;
   border: none;
   border-radius: 7px;
-  background-color: #20c978;
   color: white;
   font-size: 15px;
   cursor: pointer;
+}
+
+.add-button {
+  background-color: #20c978;
+}
+
+.update-button {
+  background-color: #3b82f6;
 }
 
 .add-button:hover {
   background-color: #18ad66;
 }
 
-.expenses-buttons {
+.update-button:hover {
+  background-color: #2563eb;
+}
+
+/* =========================
+   TOTAL EXPENSE
+========================= */
+
+.total-expense {
+  margin-top: 15px;
+  padding: 20px 25px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
 
-
-/* =========================
-   TOTAL
-========================= */
-
-body > div {
-  margin-top: 15px;
-  padding: 20px 25px;
-  border-radius: 12px;
   background-color: #e7f8f0;
   border: 1px solid #b9ead3;
+  border-radius: 12px;
 }
 
-body > div h2 {
-  margin: 0 0 8px;
+.total-expense h2 {
+  margin: 0 0 7px;
   font-size: 18px;
 }
 
 .total-amount {
   margin: 0;
   font-size: 28px;
+  font-weight: bold;
+}
+
+.expense-count {
+  margin: 0;
+  padding: 7px 12px;
+
+  border-radius: 20px;
+
+  background-color: #d4f1e3;
+  color: #168653;
+
+  font-size: 13px;
   font-weight: bold;
 }
 
@@ -146,13 +181,20 @@ body > div h2 {
 main {
   margin-top: 15px;
   padding: 25px;
-  border: 1px solid #dce2ea;
-  border-radius: 12px;
+
   background-color: white;
+  border: 1px solid #d9e0e8;
+  border-radius: 12px;
 }
 
-main h2 {
+main > h2 {
   margin-top: 0;
+}
+
+.expense-list {
+  overflow: hidden;
+  border: 1px solid #d9e0e8;
+  border-radius: 8px;
 }
 
 .expense-item {
@@ -161,26 +203,34 @@ main h2 {
   gap: 15px;
   align-items: center;
 
-  padding: 17px 10px;
-  border-top: 1px solid #e1e5eb;
+  padding: 17px;
+
+  border-bottom: 1px solid #e1e5eb;
 }
+
+.expense-item:last-child {
+  border-bottom: none;
+}
+
+/* =========================
+   DELETE / EDIT
+========================= */
 
 .delete-button,
 .edit-button {
   padding: 8px 12px;
   border-radius: 6px;
+  background-color: transparent;
   cursor: pointer;
 }
 
 .delete-button {
   border: 1px solid #ef4444;
-  background-color: transparent;
   color: #ef4444;
 }
 
 .edit-button {
   border: 1px solid #3b82f6;
-  background-color: transparent;
   color: #3b82f6;
 }
 
@@ -195,11 +245,13 @@ main h2 {
 }
 
 /* =========================
-   NO EXPENSES MESSAGE
+   NO EXPENSES
 ========================= */
 
 .no-expenses {
   padding: 40px;
+  margin: 0;
+
   text-align: center;
   color: #667085;
 }
@@ -209,8 +261,8 @@ main h2 {
 ========================= */
 
 .dark-mode {
- background-color: #073528;
-  color: #126b4c;
+  background-color: #09111f;
+  color: #f1f5f9;
 }
 
 .dark-mode header,
@@ -235,18 +287,27 @@ main h2 {
   color: #64748b;
 }
 
-.dark-mode body > div {
+.dark-mode .theme-button {
+  background-color: #f1f5f9;
+  color: #172033;
+}
+
+.dark-mode .total-expense {
   background-color: #073528;
   border-color: #126b4c;
 }
 
-.dark-mode .expense-item {
+.dark-mode .expense-count {
+  background-color: #126b4c;
+  color: #b8f5d7;
+}
+
+.dark-mode .expense-list {
   border-color: #26364b;
 }
 
-.dark-mode .theme-button {
-  background-color: #f1f5f9;
-  color: #172033;
+.dark-mode .expense-item {
+  border-color: #26364b;
 }
 
 /* =========================
@@ -259,6 +320,26 @@ main h2 {
     padding: 15px;
   }
 
+  header,
+  section,
+  main,
+  .total-expense {
+    padding: 18px;
+  }
+
+  header h1 {
+    font-size: 24px;
+  }
+
+  .expenses-buttons {
+    gap: 10px;
+  }
+
+  .add-button,
+  .update-button {
+    flex: 1;
+  }
+
   .expense-item {
     grid-template-columns: 1fr;
     gap: 8px;
@@ -267,11 +348,5 @@ main h2 {
   .delete-button,
   .edit-button {
     width: 100%;
-  }
-
-  header,
-  section,
-  main {
-    padding: 18px;
   }
 }

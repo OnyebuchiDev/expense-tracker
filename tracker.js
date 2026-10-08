@@ -13,6 +13,10 @@ document.querySelector('.expense-name');
 const expenseAmount = 
 document.querySelector('.expense-amount');
 
+const expenseCount = 
+document.querySelector('.expense-count');
+expenseCount.innerHTML = `${expenses.length} items`;
+
 const button = 
 document.querySelector('.add-button');
 //step 2: making the button respond to a click.
@@ -77,11 +81,13 @@ expenseList.addEventListener('click', (event) => {
 
   const  expenseIndex =
   expenses.findIndex((expense) => {
+    
     return expense.id == id;
     
   })
   
   expenses.splice(expenseIndex, 1);
+  saveToLocalStorage();
   event.target.closest('.expense-item').remove();
 
   updateTotal();
@@ -135,6 +141,7 @@ expenseItem.innerHTML = `
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}</div>
+  <div>${expenseToUpdate.date}</div>
   <button data-id="${expenseToUpdate.id}" class="delete-button">
     Delete
   </button>
@@ -160,14 +167,17 @@ for (let i = 0; i < expenses.length; i++) {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2
  })}`;
-
+expenseCount.innerHTML = `${expenses.length} 
+${expenses.length === 1 ?
+  'item' : 'items'
+}`;
 }
  renderExpenses();
 
 function renderExpenses() {
   expenseList.innerHTML = '';
 
-  expenses.forEach((expense) => {
+  expenses.slice().reverse().forEach((expense) => {
     const html = `
       <div class="expense-item" data-id="${expense.id}">
         <div>${expense.name}</div>
@@ -189,7 +199,7 @@ function renderExpenses() {
       </div>
     `;
 
-    expenseList.innerHTML += html;
+   renderExpenses();
   });
 
   if (expenses.length === 0) {
