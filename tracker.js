@@ -1,5 +1,6 @@
 //step 4: store multiple expenses
-const expenses = [];
+const expenses =
+JSON.parse(localStorage.getItem('expenses')) || [];
 let expenseBeingEditedId;
 //step 1: selecting the elements
 const expenseName = 
@@ -19,9 +20,17 @@ if (expenseName.value === '' || expenseAmount.value === '') {
   const expense = {
     id: Date.now(),
     name: expenseName.value,
-    amount: expenseAmount.value
+    amount: expenseAmount.value,
+    date: new
+    Date().toLocaleDateString('en-US', {
+      weekday: 'short',
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
+    })
   }
   expenses.push(expense)
+  saveToLocalStorage();
   updateTotal();
   expenseName.value = '';
   expenseAmount.value = '';
@@ -43,6 +52,7 @@ const html = `
       minimumFractionDigits: 2,
       maximumFractionDigits: 2
     })}</div>
+    <div>${expense.date}</div>
     <button data-id="${expense.id}" class="delete-button"
     >Delete</button>
     <button data-id="${expense.id}" class="edit-button">Edit</button>
@@ -148,6 +158,52 @@ for (let i = 0; i < expenses.length; i++) {
  })}`;
 
 }
+ renderExpenses();
+
+function renderExpenses() {
+  expenseList.innerHTML = '';
+
+  expenses.forEach((expense) => {
+    const html = `
+      <div class="expense-item" data-id="${expense.id}">
+        <div>${expense.name}</div>
+
+        <div>$${Number(expense.amount).toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        })}</div>
+
+        <div>${expense.date}</div>
+
+        <button data-id="${expense.id}" class="delete-button">
+          Delete
+        </button>
+
+        <button data-id="${expense.id}" class="edit-button">
+          Edit
+        </button>
+      </div>
+    `;
+
+    expenseList.innerHTML += html;
+  });
+
+  if (expenses.length === 0) {
+    expenseList.innerHTML = `
+    <p class="no-expenses">No expenses yet</p>
+    `;
+  }
+
+  updateTotal();
+ 
+}
+
+
+
+function saveToLocalStorage() {
+  localStorage.setItem('expenses', JSON.stringify((expenses)));
+}
+
 
 
 
