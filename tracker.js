@@ -3,6 +3,10 @@ const expenses =
 JSON.parse(localStorage.getItem('expenses')) || [];
 let expenseBeingEditedId;
 //step 1: selecting the elements
+const backgroundToggle = document.querySelector('.theme-button');
+backgroundToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode')
+})
 const expenseName = 
 document.querySelector('.expense-name');
 
