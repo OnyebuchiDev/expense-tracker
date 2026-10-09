@@ -129,7 +129,7 @@ updateButton.addEventListener('click', () => {
 
 expenseItem.innerHTML = `
   <div>${expenseToUpdate.name}</div>
-  <div>$${Number(expenseToUpdate.amount).toLocaleString('en-US', {
+  <div>₦${Number(expenseToUpdate.amount).toLocaleString('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   })}</div>
@@ -156,7 +156,7 @@ for (let i = 0; i < expenses.length; i++) {
   total += Number(expenses[i].amount)
 }
  const totalAmount = document.querySelector('.total-amount');
- totalAmount.innerHTML = `$${total.toLocaleString('en-US', {
+ totalAmount.innerHTML = `₦${total.toLocaleString('en-US', {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2
  })}`;
@@ -175,7 +175,7 @@ function renderExpenses() {
       <div class="expense-item" data-id="${expense.id}">
         <div>${expense.name}</div>
 
-        <div>$${Number(expense.amount).toLocaleString('en-US', {
+        <div>₦${Number(expense.amount).toLocaleString('en-US', {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2
         })}</div>
