@@ -144,6 +144,7 @@ expenseItem.innerHTML = `
 expenseName.value = '';
 expenseAmount.value = '';
 updateTotal();
+saveToLocalStorage();
 })
 
 
